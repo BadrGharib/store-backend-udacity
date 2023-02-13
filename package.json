@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
-    "start": "node src/server.ts",
+    "start": "nodemon src/server.ts",
+    "build": "npx tsc",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "tembtest": "ENV=test && npx tsc && db-migrate --env test up && jasmine-ts && db-migrate db:drop test",
     "testold": "ENV=test && npx tsc && db-migrate --env test up && jasmine-ts && db-migrate db:drop --env test",

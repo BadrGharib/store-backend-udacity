@@ -27,24 +27,10 @@ const create = async (_req: Request, res: Response) => {
     res.json(err);
   }
 };
-const authenticate = async (_req: Request, res: Response) => {
-  try {
-    const user = await store.authenticate(
-      _req.body.username,
-      _req.body.password
-    );
-    var token = jwt.sign({ user: user }, process.env.TOKEN_SECRET as string);
-    res.json(token);
-  } catch (err) {
-    res.status(400);
-    res.json(err);
-  }
-};
 
 const users_routes = (app: express.Application) => {
   app.get('/users', verifyAuthToken, index);
   app.get('/users/:id', verifyAuthToken, show);
   app.post('/users', create);
-  app.post('/authenticate', authenticate);
 };
 export default users_routes;

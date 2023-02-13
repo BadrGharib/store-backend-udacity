@@ -54,16 +54,4 @@ export class UserStore {
       );
     }
   }
-  async authenticate(username: string, password: string): Promise<User | null> {
-    const con = await client.connect();
-    const sql = 'select password from users where name =($1)';
-    const result = await con.query(sql, [username]);
-    if (result.rows.length > 0) {
-      const user = result.rows[0];
-      if (bcrypt.compareSync(password + process.env.PEPPER, user.password)) {
-        return user;
-      }
-    }
-    return null;
-  }
 }
