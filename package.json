@@ -7,8 +7,6 @@
     "start": "nodemon src/server.ts",
     "build": "npx tsc",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "tembtest": "ENV=test && npx tsc && db-migrate --env test up && jasmine-ts && db-migrate db:drop test",
-    "testold": "ENV=test && npx tsc && db-migrate --env test up && jasmine-ts && db-migrate db:drop --env test",
     "test": "set ENV=test&& db-migrate reset -e test &&  db-migrate up -e test && jasmine-ts -r dotenv/config",
     "tsc": "tsc",
     "prettier": "prettier --config .prettierrc . --write",
