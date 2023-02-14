@@ -5,12 +5,22 @@ import { verifyAuthToken } from '../services/verification';
 
 const store = new UserStore();
 const index = async (_req: Request, res: Response) => {
-  const users = await store.index();
-  res.json(users);
+  try {
+    const users = await store.index();
+    res.json(users);
+  } catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 const show = async (req: Request, res: Response) => {
-  const user = await store.show(req.params.id as unknown as number);
-  res.json(user);
+  try {
+    const user = await store.show(req.params.id as unknown as number);
+    res.json(user);
+  } catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 const create = async (_req: Request, res: Response) => {
   const user: User = {
@@ -19,9 +29,10 @@ const create = async (_req: Request, res: Response) => {
     password: _req.body.password,
   };
   try {
-    const newUser = await store.create(user);
+    let newUser = await store.create(user);
     var token = jwt.sign({ user: newUser }, process.env.TOKEN_SECRET as string);
-    res.json(token);
+    newUser.token = token;
+    res.json(newUser);
   } catch (err) {
     res.status(400);
     res.json(err);

@@ -28,3 +28,4 @@ app.get('/', function (req: Request, res: Response) {
 app.listen(port, function () {
   console.log(`starting app on: localhost:${port}`);
 });
+export default app;

@@ -12,6 +12,7 @@ In the first you have to flow the next steps to create and configure databse:
 - Give this user all privileges on both databses using this commands:
   `GRANT ALL PRIVIEGES ON DATABSE store_db TO store_admin;`
   `GRANT ALL PRIVIEGES ON DATABSE store_db_test TO store_admin;`
+- Database post is 5432
 
 ### `npm install`
 

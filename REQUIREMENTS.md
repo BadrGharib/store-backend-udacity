@@ -49,29 +49,40 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## Data Shapes
 
-#### products
+#### products table :
 
-- id
-- name
-- price
-- category
+| Column Name |        Type             |
+| ----------  | ---------------------   |
+| id          | SERIAL PRIMARY KEY      |
+| name        | VARCHAR(100) NOT NULL   |
+| price       | INTEGER NOT NULL        |
+| category    | VARCHAR(100)            |
 
-#### users
+#### users table :
 
-- id
-- firstname
-- lastname
-- password
+| Column Name |        Type             |
+| ----------  | ---------------------   |
+| id          | SERIAL PRIMARY KEY      |
+| firstname   | VARCHAR(100) NOT NULL   |
+| lastname    | VARCHAR(100) NOT NULL   |
+| password    | VARCHAR(250) NOT NULL   |
 
-#### orders
 
-- id
-- user_id
-- status of order (active or complete)
+#### orders table :
 
-#### orders_products
+| Column Name |        Type             |
+| ----------  | ---------------------   |
+| id          | SERIAL PRIMARY KEY      |
+| user_id     | BIGINT REFERENCES users(id) NOT NULL   |
+| status      | VARCHAR(100) NOT NULL   |
 
-- id
-- order_id
-- product_id
-- quantity
+
+#### orders_products table :
+
+| Column Name |        Type             |
+| ----------  | ---------------------   |
+| id          | SERIAL PRIMARY KEY      |
+| order_id    | BIGINT REFERENCES orders(id) NOT NULL   |
+| product_id  | BIGINT REFERENCES products(id) NOT NULL   |
+| quantity    | INTEGER NOT NULL   |
+
