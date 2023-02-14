@@ -22,10 +22,8 @@ describe('orders Model', () => {
       category: 'category 1',
     });
     order = await store.create({
-      product_id: user.id as string,
-      quantity: 2,
       status: 'active',
-      user_id: product.id as string,
+      user_id: user.id as number,
     });
   });
   it('should have an index method', () => {
@@ -43,10 +41,8 @@ describe('orders Model', () => {
   it('create method should add a order', async () => {
     const { id, ...orderWithoutId } = order;
     expect(orderWithoutId).toEqual({
-      product_id: (product.id as number)?.toString(),
-      quantity: 2,
       status: 'active',
-      user_id: (user.id as number)?.toString(),
+      user_id: (user.id as number).toString(),
     });
   });
 
@@ -56,13 +52,25 @@ describe('orders Model', () => {
   });
 
   it('show method should return the correct order', async () => {
-    const order = await store.show(user.id as string);
+    const order = await store.show(user.id as number);
     const { id, ...orderWithoutId } = order;
     expect(orderWithoutId).toEqual({
-      product_id: (product.id as number)?.toString(),
-      quantity: 2,
       status: 'active',
-      user_id: (user.id as number)?.toString(),
+      user_id: (user.id as number).toString(),
+    });
+  });
+
+  it('add_product_to_order method should add product to order', async () => {
+    const newAddProductToOrder = await store.add_product_to_order({
+      order_id: (order.id as number).toString(),
+      product_id: (product.id as number).toString(),
+      quantity: 2,
+    });
+    const { id, ...newAddProductToOrderWithoutId } = newAddProductToOrder;
+    expect(newAddProductToOrderWithoutId).toEqual({
+      order_id: (order.id as number).toString(),
+      product_id: (product.id as number).toString(),
+      quantity: 2,
     });
   });
 });

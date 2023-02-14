@@ -33,7 +33,7 @@ describe('Products Model', () => {
   });
 
   it('show method should return the correct product', async () => {
-    const product = await store.show('1');
-    expect(product.name).toEqual('Product 1');
+    const newproduct = await store.show(product.id as number);
+    expect(newproduct.name).toEqual('Product 1');
   });
 });

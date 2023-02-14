@@ -1,7 +1,7 @@
 import client from '../database';
 import bcrypt from 'bcrypt';
 export type User = {
-  id?: Number | string;
+  id?: Number;
   firstname: string;
   lastname: string;
   password: string;
@@ -19,7 +19,7 @@ export class UserStore {
       throw new Error(`can't get users : ${error}`);
     }
   }
-  async show(id: string): Promise<User> {
+  async show(id: number): Promise<User> {
     try {
       const sql = 'SELECT * FROM users WHERE id=($1)';
       const conn = await client.connect();

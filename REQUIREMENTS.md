@@ -38,6 +38,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Create [token required]
   '/orders' (post) --> create new order
   body example={ product_id: 1,quantity: 2,status: 'active',user_id: 1}
+- Add product to order [token required]
+  '/add_product_to_order' (post) --> add product to order
 
 #### Dashboard
 
@@ -47,24 +49,29 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## Data Shapes
 
-#### Product
+#### products
 
 - id
 - name
 - price
-- [OPTIONAL] category
+- category
 
-#### User
+#### users
 
 - id
 - firstname
 - lastname
 - password
 
-#### Orders
+#### orders
 
 - id
-- id of each product in the order
-- quantity of each product in the order
 - user_id
 - status of order (active or complete)
+
+#### orders_products
+
+- id
+- order_id
+- product_id
+- quantity

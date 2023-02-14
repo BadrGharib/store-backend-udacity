@@ -1,4 +1,4 @@
-import { Order, OrderStore } from '../model/orders';
+import { Order, OrderStore, Order_product } from '../model/orders';
 import { User, UserStore } from '../model/users';
 import { Product, ProductStore } from '../model/products';
 import { DashboardStore } from '../services/dashboard';
@@ -12,6 +12,7 @@ describe('dashboard service', () => {
   let order: Order;
   let product: Product;
   let user: User;
+  let orderProduct: Order_product;
   beforeAll(async () => {
     user = await userStore.create({
       firstname: 'badr',
@@ -24,10 +25,13 @@ describe('dashboard service', () => {
       category: 'category 1',
     });
     order = await orderStore.create({
-      product_id: user.id as string,
-      quantity: 2,
       status: 'active',
-      user_id: product.id as string,
+      user_id: user.id as number,
+    });
+    orderProduct = await orderStore.add_product_to_order({
+      order_id: order.id as number,
+      product_id: product.id as number,
+      quantity: 2,
     });
   });
   it('should have an current_order_by_user method', () => {
@@ -36,14 +40,14 @@ describe('dashboard service', () => {
 
   it('current_order_by_user method should return current active order for specific user', async () => {
     const currentOrder = await dashboardStore.current_order_by_user(
-      user.id as string
+      user.id as number
     );
     expect(currentOrder).toEqual({
-      id: 1,
-      product_id: (product.id as number)?.toString(),
-      quantity: 2,
+      id: order.id as number,
+      user_id: (user.id as number).toString(),
       status: 'active',
-      user_id: (user.id as number)?.toString(),
+      product_id: (product.id as number).toString(),
+      quantity: 2,
     });
   });
 });

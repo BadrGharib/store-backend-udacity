@@ -9,7 +9,7 @@ const index = async (_req: Request, res: Response) => {
   res.json(users);
 };
 const show = async (req: Request, res: Response) => {
-  const user = await store.show(req.params.id);
+  const user = await store.show(req.params.id as unknown as number);
   res.json(user);
 };
 const create = async (_req: Request, res: Response) => {

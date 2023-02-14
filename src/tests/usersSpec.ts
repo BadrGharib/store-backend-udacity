@@ -37,7 +37,7 @@ describe('users Model', () => {
   });
 
   it('show method should return the correct user', async () => {
-    const user = await store.show('1');
-    expect(user.firstname).toEqual('badr');
+    const newuser = await store.show(user.id as number);
+    expect(newuser.firstname).toEqual('badr');
   });
 });

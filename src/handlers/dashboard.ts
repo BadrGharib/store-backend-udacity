@@ -6,7 +6,7 @@ const store = new DashboardStore();
 const currentOrderByUser = async (_req: Request, res: Response) => {
   try {
     const userId = _req.params.id;
-    const order = await store.current_order_by_user(userId);
+    const order = await store.current_order_by_user(parseInt(userId));
     res.json(order);
   } catch (err) {
     res.status(400);

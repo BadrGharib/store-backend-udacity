@@ -1,7 +1,7 @@
 import client from '../database';
 
 export type Product = {
-  id?: string | number;
+  id?: number;
   name: string;
   price: number;
   category: string;
@@ -19,7 +19,7 @@ export class ProductStore {
       throw new Error(`can't get products ${error} `);
     }
   }
-  async show(id: string): Promise<Product> {
+  async show(id: number): Promise<Product> {
     try {
       const sql = 'SELECT * FROM products WHERE id=($1)';
       const conn = await client.connect();
